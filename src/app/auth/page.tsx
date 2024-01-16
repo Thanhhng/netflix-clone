@@ -3,11 +3,11 @@ import Image from "next/image"
 import FormInput from "../components/LoginForm";
 import { useCallback, useState } from "react";
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation'
 import { FcGoogle } from 'react-icons/fc';
 import { FaGithub } from 'react-icons/fa';
 
 const axios = require('axios');
+
 
 interface ErrorContainer{
   EmailMessage?:string;
@@ -17,13 +17,11 @@ interface ErrorContainer{
 }
 
 function LoginPage() {
-  const router = useRouter()
   const [formState,setFormState] = useState('login')
   const [password,setPassword] = useState("")
   const [email,setEmail] = useState("")
   const [userName,setName] = useState("")
   const [errorContainer,setErrorContainer] = useState<ErrorContainer>({});
-
   const validateInput = useCallback(() : boolean => {
     const errors : ErrorContainer = {};
     if(!email || email.length < 6){
@@ -40,22 +38,19 @@ function LoginPage() {
     const hasError = validateInput();
     if(hasError){
       return;
-    }   
+    }
     try{
-      const user = await signIn('credentials',{
+      await signIn('credentials',{
         email,
         password,
+        redirect: true,
+        callbackUrl: '/'
       });
-      if(user && typeof user === 'object' && Object.keys(user).length > 0) {
-        router.push('/');
-      }
-      return;
     } catch (err){
-      return err
+      console.log('Failed to login: ' + err);
     }
-  },[email,password,router,validateInput])
+  },[email,password,validateInput])
 
-  
 
   const register = useCallback( async () => {
     const hasError = validateInput();
@@ -100,10 +95,10 @@ function LoginPage() {
                     <FormInput inputId="inputPassword" labelVal="Password" typeInput="password" onChange={(e) => setPassword(e.target.value)} value={password} error={errorContainer?.PasswordMessage} onFocus={() => handleFocus("PasswordMessage")} />
                     <button className='w-full bg-red-600 hover:bg-red-800 text-white my-8 py-2.5 rounded text-md' onClick={login}>Sign In</button>
                     <div className="flex flex-row gap-6 justify-center items-center md:gap-8">
-                      <div onClick={() => {signIn("google",{callbackUrl:"/"})}} className="rounded-2xl bg-white w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80">
+                      <div onClick={() => {signIn("google",{callbackUrl:"/profile"})}} className="rounded-2xl bg-white w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80">
                         <FcGoogle size={30}/>
                       </div>
-                      <div onClick = {() => {signIn("github",{callbackUrl: "/"})}} className="rounded-3xl bg-white w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80 ">
+                      <div onClick = {() => {signIn("github",{callbackUrl: "/profile"})}} className="rounded-3xl bg-white w-8 h-8 flex items-center justify-center cursor-pointer hover:opacity-80 ">
                         <FaGithub size={30}/>
                       </div>
                     </div>

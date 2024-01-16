@@ -1,19 +1,19 @@
 import NextAuth from "next-auth"
 import { compare } from 'bcrypt';
 import Credentials from 'next-auth/providers/credentials';
-import { PrismaClient } from "@prisma/client";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import GitHubProvider from "next-auth/providers/github";
-const prismadb = new PrismaClient();
+import client from "@/libs/prismadb";
 
 
-const loginHandler = NextAuth({
+const authOptions = NextAuth({
     providers:[
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as "",
-        }),
+        }
+        ),
         GitHubProvider({
             clientId: process.env.GITHUB_ID as "",
             clientSecret: process.env.GITHUB_SECRET as "",
@@ -36,7 +36,7 @@ const loginHandler = NextAuth({
                     throw new Error('Email and password required');
                 }
                 try {
-                    const user = await prismadb.user.findUnique({
+                    const user = await client.user.findUnique({
                         where :{
                             email: credentials.email
                         }
@@ -46,9 +46,10 @@ const loginHandler = NextAuth({
                     }
                     const isCorrectPassword = await compare(credentials.password, user.hashedPassword);
                     if (!isCorrectPassword) {
-                        throw new Error('Incorrect password');
+                        throw new Error('Reason: Incorrect password');
                     }
-                    return user as any;
+                    console.log({user})
+                    return user;
                 } catch (err) {
                     console.log("can't authorize" + err);
                     return null;
@@ -60,7 +61,7 @@ const loginHandler = NextAuth({
         signIn : '/auth'
     },
     debug : process.env.NODE_ENV === 'development',
-    adapter: PrismaAdapter(prismadb),
+    adapter: PrismaAdapter(client),
     session : {
         strategy : 'jwt'
     },
@@ -69,4 +70,5 @@ const loginHandler = NextAuth({
     },
     secret : process.env.NEXTAUTH_SECRET
 })
-export {loginHandler as GET, loginHandler as POST}
+
+export {authOptions as GET, authOptions as POST}

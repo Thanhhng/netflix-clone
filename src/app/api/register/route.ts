@@ -1,8 +1,6 @@
-import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import { NextApiResponse } from 'next';
-
-const prismadb = new PrismaClient();
+import prismadb from '@/libs/prismadb';
 
 
 export async function POST(req: Request, res: NextApiResponse) {

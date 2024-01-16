@@ -1,8 +1,13 @@
+import BillBoard from "./components/BillBoard"
+import MovieComponent from "./components/MovieList"
 
-export default function Home() {
+
+export default async function Home() {
   return (
     <main>
-      <div className="text-white">hello world </div>
+      <BillBoard/>
+      <MovieComponent/>
     </main>
   )
 }
+
