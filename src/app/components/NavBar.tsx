@@ -25,8 +25,11 @@ const NavBarItem:React.FC<listItem> = ({value,isModal}) => {
 function NavBar() {
     const [isBrowseOpen,setIsOpen] = useState(false)
     const [isUserOpen,setIsUserOpen] = useState(false)
+    function handleHover(){
+        setIsOpen(!isBrowseOpen)
+    }
   return (
-        <nav className="justify-around px-2 md:px-8 pt-4 flex flex-row  fixed top-0 left-0  h-8 w-full items-center text-sm text-white z-10">
+        <nav className="justify-around px-2 md:px-8 pt-4 flex flex-row  fixed top-0 left-0  h-8 w-full items-center text-sm text-white z-10" >
             <Image src="/logo.png" width={150} height={40} alt="logo" className='w-4 md:w-8 cursor-pointer' />
             <ul className='flex-row gap-7 ml-8 hidden lg:flex '>
                 <NavBarItem value='Home'></NavBarItem>
@@ -38,13 +41,13 @@ function NavBar() {
             </ul>
             <div className='flex mx-8 md-mx-10 relative lg:hidden'>
                 <div className='flex items-center justify-center gap-1 px-6 '>
-                    <button className='cursor-pointer  h-full text-lg hover:text-yellow-500 ' onClick={() => setIsOpen(!isBrowseOpen)}>Browse</button>
+                    <button className='cursor-pointer  h-full text-lg hover:text-yellow-500 ' onMouseLeave={() => {setIsOpen(!isBrowseOpen)}} onMouseEnter={handleHover} onClick={() => setIsOpen(!isBrowseOpen)}>Browse</button>
                     <button onClick={() => setIsOpen(!isBrowseOpen)} className='flex items-center justify-center'>
                         <IoIosArrowDown />
                     </button>
                 </div>
                 { isBrowseOpen ?
-                    <div className='absolute top-10 gap-1 flex flex-col bg-stone-900 justify-center items-center w-28 text-justify rounded-sm '>
+                    <div className='absolute top-10 gap-1 flex flex-col bg-stone-900 justify-center items-center w-32 text-justify rounded-sm '>
                         <NavBarItem value='Home' isModal={true} ></NavBarItem>
                         <NavBarItem value='Series' isModal={true}></NavBarItem>
                         <NavBarItem value='Films' isModal={true}></NavBarItem>
@@ -56,9 +59,9 @@ function NavBar() {
                 }
             </div>
             <div className='flex items-center justify-center h-full gap-2 sm:gap-4 md:gap-6 relative '>
-                <div className='cursor-pointer'><CiSearch /></div>
-                <div className='cursor-pointer'><FaBell/></div>
-                <Image src="/default-blue.png" width={30} height={30} alt='user-icon' className='cursor-pointer ' onClick={() => setIsUserOpen(!isUserOpen)}/>
+                <div className='cursor-pointer scale-150'><CiSearch /></div>
+                <div className='cursor-pointer scale-125'><FaBell/></div>
+                <Image src="/default-blue.png" width={30} height={30} alt='user-icon' className='cursor-pointer' onClick={() => setIsUserOpen(!isUserOpen)}/>
                 {
                     isUserOpen ?
                         <div className='absolute w-16 top-10 right-[-1.5rem] text-xl rounded  border-white flex items-center justify-center text-center'>
