@@ -116,7 +116,7 @@ function LoginPage() {
                       <FormInput inputId="inputUserName" labelVal="User Name" typeInput="text" onChange={e => setName(e.target.value)} value={userName} error={ formState === "register " ? errorContainer.EmailMessage : "" } onFocus={() => handleFocus("confirmPassWord")}/>
                       <button onClick={register} className='w-full bg-red-600 hover:bg-red-800 text-white my-8 py-2.5 rounded text-md '>Register</button>
                       <p className='text-[#737373] text-sm md:text-md '> already have account ?
-                        <span onClick={() =>  setFormState("login")} className='pl-1 text-sm md:text-md text-white hover:border-b border-b-white cursor-pointer'>Sign in </span>
+                        <span onClick={() =>  setFormState("login")} className='pl-1 text-sm md:text-md text-white hover:border-b border-b-white cursor-pointer'>Sign in (test)</span>
                       </p>
                     </div>
                   </>
