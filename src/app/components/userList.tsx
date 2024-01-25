@@ -33,7 +33,7 @@ function UserList({movies}:UserListType) {
   }
 
     const filmList = movies.map((e:any,key:number) => {
-      const isExist = userFavList.some((obj:any) => obj.id === e.id)
+      const isExist = userFavList?.some((obj:any) => obj.id === e.id)
       return(
           <div key={key} className="group flex duration-400 flex-col gap-2 relative hover:scale-x-125 hover:scale-110 hover:translate-y-[-7rem] hover:z-10 cursor-pointer">
               <Image  src={e.thumbnailUrl} width={150} height={150} alt="thumbnail-url" className=" cursor-pointer rounded min-h-[8rem] min-w-[10rem] md:min-w-[9rem] lg:min-w-[12rem] xl:min-w-[12rem]"/>
@@ -62,8 +62,8 @@ function UserList({movies}:UserListType) {
           </div>
       )
     })
-    const favFilmList = userFavList.map((e:any,key:number) => {
-      const isExist = userFavList.some((obj:any) => obj.id === e.id)
+    const favFilmList = userFavList?.map((e:any,key:number) => {
+      const isExist = userFavList?.some((obj:any) => obj.id === e.id)
       return(
           <div key={key} className="group flex duration-400 flex-col gap-2 relative hover:scale-x-125 hover:scale-110 hover:translate-y-[-7rem] hover:z-10 cursor-pointer">
               <Image  src={e.thumbnailUrl} width={150} height={150} alt="thumbnail-url" className=" cursor-pointer rounded min-h-[8rem] min-w-[10rem] md:min-w-[9rem] lg:min-w-[12rem] xl:min-w-[12rem]"/>
@@ -100,7 +100,7 @@ function UserList({movies}:UserListType) {
                   {filmList}
               </div>
             </div>
-            <div className={`${userFavList.length === 0 ? "hidden" : "flex flex-col gap-4" }`}>
+            <div className={`${userFavList?.length === 0 ? "hidden" : "flex flex-col gap-4" }`}>
               <h1 className="text-white text-2xl text-semibold pl-6 md:pl-12 pt-4">Favorite Film</h1>
               <div className="grid grid-cols-2 gap-6 mx-1 justify-items-center items-center sm:grid-cols-3 sm:items-center sm:gap-4 sm:px-4 md:flex md:px-8 md:gap-6 lg:justify-start lg:gap-10 xl:gap-12">
                   {favFilmList}

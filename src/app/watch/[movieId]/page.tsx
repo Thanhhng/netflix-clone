@@ -1,6 +1,5 @@
 import React from 'react'
 import client from '@/libs/prismadb'
-import ExistButton from '@/app/components/ExistVidButton';
 import TitleMovie from '@/app/components/TitleMovie';
 
 
