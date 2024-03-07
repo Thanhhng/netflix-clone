@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Deploy on Vercel
 
-Check out my [ Application ]([https://nextjs.org/docs/deployment](https://vercel.com/nghuuthanh2001s-projects/car-showroom)) for more details.
+Check out my [ Application ](car-showroom-nine-rho.vercel.app) for more details.
