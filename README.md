@@ -1,4 +1,4 @@
-This is a NextJs project
+This is a NextJs netflix-project, a really simple project but the authentication hard me so much, but now i learned from it 
 
 ## Getting Started
 
@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-opti
 
 ## Deploy on Vercel
 
-Check out my [ Application ](car-showroom-nine-rho.vercel.app) for more details.
+Check out my [ Application ](netflix-clone-zeta-neon.vercel.app) for more details.
